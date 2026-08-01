@@ -1,0 +1,455 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: 'Derived from the official Standard Bots Python SDK (PyPI: standardbots 2.20260617.2, module standardbots.auto_generated.apis)
+  — the RO1 REST API operation surface. No official hosted MCP server was found (docs.standardbots.com
+  is a single-page app; no MCP endpoint or registry entry located).'
+description: 'Candidate MCP tool list mapped one-to-one from the RO1 Robotics REST API operations exposed
+  by the official Python SDK. The RO1 API runs on the robot control box (Bearer-token auth); an MCP server
+  would proxy these operations. SAFETY-CRITICAL: many tools command physical robot motion (arm position,
+  brakes, emergency-stop, gripper) and must be gated behind human-in-the-loop confirmation.'
+server:
+  name: standard-bots
+  transport: http
+  note: candidate only — Standard Bots publishes no hosted MCP server as of this pass
+tools:
+- name: get_active_calibration
+  description: Get the active calibration for the robot.
+  method: GET
+  path: /api/v1/calibration/active
+  source_operation: packages/standard-bots-packages.yml#get_active_calibration
+- name: set_active_calibration
+  description: Set the active calibration for the robot.
+  method: POST
+  path: /api/v1/calibration/active
+  source_operation: packages/standard-bots-packages.yml#set_active_calibration
+- name: get_equipment
+  description: Get the currently-configured equipment
+  method: GET
+  path: /api/v1/equipment
+  source_operation: packages/standard-bots-packages.yml#get_equipment
+- name: control_gripper
+  description: Send commands to control the Gripper (End Effector) of the robot. The gripper can be any
+    of Standard Bots supported grippers.
+  method: POST
+  path: /api/v1/equipment/end-effector/control
+  source_operation: packages/standard-bots-packages.yml#control_gripper
+- name: get_gripper_configuration
+  description: Get the current gripper configuration
+  method: GET
+  path: /api/v1/equipment/end-effector/configuration
+  source_operation: packages/standard-bots-packages.yml#get_gripper_configuration
+- name: start
+  description: Start an external-control streaming session. Runs a hidden, ephemeral routine that takes
+    the external-control lease (and, for ROS modes, starts the ROS bridge),
+  method: POST
+  path: /api/v1/external-control/start
+  source_operation: packages/standard-bots-packages.yml#start
+- name: stop
+  description: Stop the running external-control session, releasing the lease and (for ROS modes) tearing
+    down the bridge. Only stops the run when it is an external-control se
+  method: POST
+  path: /api/v1/external-control/stop
+  source_operation: packages/standard-bots-packages.yml#stop
+- name: set_payload
+  description: Set a value for the mass being carried by the robot&#x27;s end-effector.
+  method: POST
+  path: /api/v1/payload
+  source_operation: packages/standard-bots-packages.yml#set_payload
+- name: get_payload
+  description: Get the current mass value being carried by the robot&#x27;s end-effector.
+  method: GET
+  path: /api/v1/payload
+  source_operation: packages/standard-bots-packages.yml#get_payload
+- name: get_recorder_state
+  description: Get the state of the recorder
+  method: GET
+  path: /api/v1/recorder/state
+  source_operation: packages/standard-bots-packages.yml#get_recorder_state
+- name: update_recording
+  description: Update recording configuration
+  method: POST
+  path: /api/v1/recorder/update
+  source_operation: packages/standard-bots-packages.yml#update_recording
+- name: enable_recorder_bot
+  description: Enable or disable a secondary bot
+  method: POST
+  path: /api/v1/recorder/set-bot-enabled
+  source_operation: packages/standard-bots-packages.yml#enable_recorder_bot
+- name: start_recording
+  description: Start recording movement and camera data
+  method: POST
+  path: /api/v1/recorder/start
+  source_operation: packages/standard-bots-packages.yml#start_recording
+- name: stop_recording
+  description: Stop recording movement and camera data
+  method: POST
+  path: /api/v1/recorder/stop
+  source_operation: packages/standard-bots-packages.yml#stop_recording
+- name: save_recording
+  description: Save recording to marvin app
+  method: POST
+  path: /api/v1/recorder/save
+  source_operation: packages/standard-bots-packages.yml#save_recording
+- name: clear_hardware_config_cache
+  description: Clear the cached hardware configs on echo-bot, forcing fresh GQL fetches on the next ConfigureRecording
+    call
+  method: POST
+  path: /api/v1/recorder/clear-hardware-config-cache
+  source_operation: packages/standard-bots-packages.yml#clear_hardware_config_cache
+- name: get_sensors
+  description: Get the current state of all sensors
+  method: GET
+  path: /api/v1/equipment/custom/sensors
+  source_operation: packages/standard-bots-packages.yml#get_sensors
+- name: list_global_spaces
+  description: List Global Spaces
+  method: GET
+  path: /api/v1/space/globals
+  source_operation: packages/standard-bots-packages.yml#list_global_spaces
+- name: list_planes
+  description: List Planes
+  method: GET
+  path: /api/v1/space/planes
+  source_operation: packages/standard-bots-packages.yml#list_planes
+- name: get_state
+  description: Get the state of the teleop
+  method: GET
+  path: /api/v1/teleop/state
+  source_operation: packages/standard-bots-packages.yml#get_state
+- name: enable_bot
+  description: Enable or disable a secondary bot
+  method: POST
+  path: /api/v1/teleop/set-bot-enabled
+  source_operation: packages/standard-bots-packages.yml#enable_bot
+- name: get_teleop_settings
+  description: Get persisted teleop settings (currently the world-compass heading calibration).
+  method: GET
+  path: /api/v1/teleop/settings
+  source_operation: packages/standard-bots-packages.yml#get_teleop_settings
+- name: set_teleop_settings
+  description: Patch persisted teleop settings. Awaits ConfigureTeleop on teleop-bot before returning,
+    so a subsequent /api/v1/teleop/start will see the new values.
+  method: POST
+  path: /api/v1/teleop/settings
+  source_operation: packages/standard-bots-packages.yml#set_teleop_settings
+- name: set_teleop_config
+  description: Set teleop config parameters
+  method: POST
+  path: /api/v1/teleop/set-config
+  source_operation: packages/standard-bots-packages.yml#set_teleop_config
+- name: set_session_overrides
+  description: Apply per-session overrides (mode, gripper velocity / bounds, filter type) on top of the
+    persisted teleop settings. Overrides live for the lifetime of one teleo
+  method: POST
+  path: /api/v1/teleop/session-overrides
+  source_operation: packages/standard-bots-packages.yml#set_session_overrides
+- name: start_teleop
+  description: start teleop
+  method: POST
+  path: /api/v1/teleop/start
+  source_operation: packages/standard-bots-packages.yml#start_teleop
+- name: stop_teleop
+  description: stop teleop
+  method: POST
+  path: /api/v1/teleop/stop
+  source_operation: packages/standard-bots-packages.yml#stop_teleop
+- name: set_ratio_control
+  description: Set ratio control parameters for movement and rotation
+  method: POST
+  path: /api/v1/teleop/set-ratio-control
+  source_operation: packages/standard-bots-packages.yml#set_ratio_control
+- name: set_gripper_bounds
+  description: Set gripper bounds for primary and secondary bots
+  method: POST
+  path: /api/v1/teleop/set-gripper-bounds
+  source_operation: packages/standard-bots-packages.yml#set_gripper_bounds
+- name: set_robot_frame
+  description: Set robot frame
+  method: POST
+  path: /api/v1/teleop/set-robot-frame
+  source_operation: packages/standard-bots-packages.yml#set_robot_frame
+- name: set_bolt_head_position
+  description: Set static bolt head position
+  method: POST
+  path: /api/v1/teleop/set-bolt-head-position
+  source_operation: packages/standard-bots-packages.yml#set_bolt_head_position
+- name: start_session
+  description: 'Start an ephemeral teleop session: run a hidden Loop { Teleop } routine that holds teleop
+    for its lifetime. Resolves once the session is running; fails if a rou'
+  method: POST
+  path: /api/v1/teleop/session/start
+  source_operation: packages/standard-bots-packages.yml#start_session
+- name: stop_session
+  description: Stop the running ephemeral teleop session. No-op unless the running routine is a teleop
+    session started through this API.
+  method: POST
+  path: /api/v1/teleop/session/stop
+  source_operation: packages/standard-bots-packages.yml#stop_session
+- name: session_heartbeat
+  description: Owner-presence heartbeat. The client that started the teleop session pings this (~every
+    500ms) while its teleop view is on-screen; the server stops the session
+  method: POST
+  path: /api/v1/teleop/session/heartbeat
+  source_operation: packages/standard-bots-packages.yml#session_heartbeat
+- name: send_message
+  description: Send a WebRTC signaling message
+  method: POST
+  path: /api/v1/webrtc/message
+  source_operation: packages/standard-bots-packages.yml#send_message
+- name: get_messages
+  description: Get pending WebRTC signaling messages
+  method: GET
+  path: /api/v1/webrtc/messages
+  source_operation: packages/standard-bots-packages.yml#get_messages
+- name: set_brakes_state
+  description: Control Joint Brakes in the robot
+  method: POST
+  path: /api/v1/movement/brakes
+  source_operation: packages/standard-bots-packages.yml#set_brakes_state
+- name: get_brakes_state
+  description: Get the current state of the robot brakes
+  method: GET
+  path: /api/v1/movement/brakes
+  source_operation: packages/standard-bots-packages.yml#get_brakes_state
+- name: engage_emergency_stop
+  description: Engage Emergency braking system. &gt; **⚠️ Warning:** This will immediately stop the robot
+    and may cause damage to the robot or surrounding environment.
+  method: POST
+  path: /api/v1/movement/brakes/emergency-stop
+  source_operation: packages/standard-bots-packages.yml#engage_emergency_stop
+- name: get_arm_position
+  description: Get the current position of the robot arm
+  method: GET
+  path: /api/v1/movement/position/arm
+  source_operation: packages/standard-bots-packages.yml#get_arm_position
+- name: set_arm_position
+  description: Control the position of the RO1 Robot arm.
+  method: POST
+  path: /api/v1/movement/position/arm
+  source_operation: packages/standard-bots-packages.yml#set_arm_position
+- name: set_arm_position_controlled
+  description: Control the position of the RO1 Robot arm in a controlled manner. This endpoint will return
+    once the movement is initiated. The client should then call the hear
+  method: POST
+  path: /api/v1/movement/position/arm/controlled
+  source_operation: packages/standard-bots-packages.yml#set_arm_position_controlled
+- name: send_heartbeat
+  description: Use this endpoint to send a heartbeat for the current movement. This assumes that the client
+    has already called the &quot;Set Arm Position With Heartbeat&quot;
+  method: POST
+  path: /api/v1/movement/position/arm/controlled/{command_id}/heartbeat
+  source_operation: packages/standard-bots-packages.yml#send_heartbeat
+- name: get_color_frame
+  description: Retrieve the latest RGB frame from the camera as base64 string. In JPEG format.
+  method: GET
+  path: /api/v1/camera/frame/rgb
+  source_operation: packages/standard-bots-packages.yml#get_color_frame
+- name: get_camera_intrinsics_color
+  description: Retrieve the intrinsic parameters for the color camera.
+  method: GET
+  path: /api/v1/camera/intrinsics/rgb
+  source_operation: packages/standard-bots-packages.yml#get_camera_intrinsics_color
+- name: get_camera_stream
+  description: Retrieve the latest RGB frame from the camera as base64 string. In JPEG format.
+  method: GET
+  path: /api/v1/camera/stream/rgb
+  source_operation: packages/standard-bots-packages.yml#get_camera_stream
+- name: get_camera_frame
+  description: Retrieve the latest frame from a specific camera by camera ID using the messenger GetFrame
+    method. Returns a JSON object containing the frame as a base64 string
+  method: GET
+  path: /api/v1/camera/{camera_id}/frame
+  source_operation: packages/standard-bots-packages.yml#get_camera_frame
+- name: set_camera_settings
+  description: Set the camera settings.
+  method: POST
+  path: /api/v1/camera/settings
+  source_operation: packages/standard-bots-packages.yml#set_camera_settings
+- name: get_camera_status
+  description: Retrieve the current status of the camera.
+  method: GET
+  path: /api/v1/camera/status
+  source_operation: packages/standard-bots-packages.yml#get_camera_status
+- name: get_connected_cameras
+  description: Retrieve the list of connected camera devices from camera bot.
+  method: GET
+  path: /api/v1/cameras/connected
+  source_operation: packages/standard-bots-packages.yml#get_connected_cameras
+- name: trigger_user_fault
+  description: Trigger user faults for routine
+  method: POST
+  path: /api/v1/faults/user-fault
+  source_operation: packages/standard-bots-packages.yml#trigger_user_fault
+- name: bot_identity
+  description: Get information about the robot&#x27;s identity.
+  method: GET
+  path: /api/v1/identity/bot_identity
+  source_operation: packages/standard-bots-packages.yml#bot_identity
+- name: get_joints_state
+  description: Retrieves information about the state of each joint
+  method: GET
+  path: /api/v1/joints
+  source_operation: packages/standard-bots-packages.yml#get_joints_state
+- name: update_io_state
+  description: Updates the state of I/O based on the provided action (&#x27;high&#x27; or &#x27;low&#x27;).
+  method: POST
+  path: /api/v1/io
+  source_operation: packages/standard-bots-packages.yml#update_io_state
+- name: get_io_state
+  description: Retrieves the current state of I/O.
+  method: GET
+  path: /api/v1/io
+  source_operation: packages/standard-bots-packages.yml#get_io_state
+- name: register_peer
+  description: Register a new peer with the messenger system.
+  method: POST
+  path: /api/v1/messenger/peers
+  source_operation: packages/standard-bots-packages.yml#register_peer
+- name: unregister_peer
+  description: Unregister an existing peer from the messenger system.
+  method: DELETE
+  path: /api/v1/messenger/peers
+  source_operation: packages/standard-bots-packages.yml#unregister_peer
+- name: cartesian_pose
+  description: Retrieve the cartesian pose based on euler angles
+  method: POST
+  path: /api/v1/poses/cartesian-pose
+  source_operation: packages/standard-bots-packages.yml#cartesian_pose
+- name: joint_pose
+  description: Retrieve the cartesian pose based on joint angles
+  method: POST
+  path: /api/v1/poses/joint-pose
+  source_operation: packages/standard-bots-packages.yml#joint_pose
+- name: pose_distance
+  description: Calculate the distance between two cartesian poses
+  method: POST
+  path: /api/v1/poses/pose-distance
+  source_operation: packages/standard-bots-packages.yml#pose_distance
+- name: poses_addition
+  description: Calculate the addition between two cartesian poses
+  method: POST
+  path: /api/v1/poses/add
+  source_operation: packages/standard-bots-packages.yml#poses_addition
+- name: poses_subtraction
+  description: Calculate the subtraction between two cartesian poses
+  method: POST
+  path: /api/v1/poses/subtract
+  source_operation: packages/standard-bots-packages.yml#poses_subtraction
+- name: cartesian_offset
+  description: Determine the robot pose after applying the offset transformation
+  method: POST
+  path: /api/v1/poses/cartesian-offset
+  source_operation: packages/standard-bots-packages.yml#cartesian_offset
+- name: get_joints_position
+  description: Get the joints position of the robot
+  method: GET
+  path: /api/v1/poses/joints-position
+  source_operation: packages/standard-bots-packages.yml#get_joints_position
+- name: get_tooltip_position
+  description: Get the tooltip position of the robot
+  method: GET
+  path: /api/v1/poses/tooltip-position
+  source_operation: packages/standard-bots-packages.yml#get_tooltip_position
+- name: get_flange_position
+  description: Get the flange position of the robot
+  method: GET
+  path: /api/v1/poses/flange-position
+  source_operation: packages/standard-bots-packages.yml#get_flange_position
+- name: recover
+  description: Attempts to recover the robot from a fault state. Inspect the response to determine if
+    additional recovery actions are required.
+  method: POST
+  path: /api/v1/recovery/recover
+  source_operation: packages/standard-bots-packages.yml#recover
+- name: get_status
+  description: Get the robot&#x27;s recovery status.
+  method: GET
+  path: /api/v1/recovery/status
+  source_operation: packages/standard-bots-packages.yml#get_status
+- name: update_ros_control_state
+  description: Updates the state of ROS control based on the provided action (&#x27;enable&#x27; or &#x27;disable&#x27;).
+  method: POST
+  path: /api/v1/movement/ros/state
+  source_operation: packages/standard-bots-packages.yml#update_ros_control_state
+- name: get_ros_control_state
+  description: Retrieves the current state of ROS control.
+  method: GET
+  path: /api/v1/movement/ros/state
+  source_operation: packages/standard-bots-packages.yml#get_ros_control_state
+- name: get_dds_configuration
+  description: Retrieves the current external DDS configuration and apply status.
+  method: GET
+  path: /api/v1/ros/dds/configuration
+  source_operation: packages/standard-bots-packages.yml#get_dds_configuration
+- name: update_dds_configuration
+  description: Updates the external DDS domain and broadcast network interfaces. The domain ID must be
+    in the range 1-232 (domain 0 is reserved for internal robot communicatio
+  method: POST
+  path: /api/v1/ros/dds/configuration
+  source_operation: packages/standard-bots-packages.yml#update_dds_configuration
+- name: play
+  description: play
+  method: POST
+  path: /api/v1/routine-editor/routines/{routine_id}/play
+  source_operation: packages/standard-bots-packages.yml#play
+- name: pause
+  description: Pause a routine. Routine must be running.
+  method: POST
+  path: /api/v1/routine-editor/routines/{routine_id}/pause
+  source_operation: packages/standard-bots-packages.yml#pause
+- name: stop
+  description: Stop running routine and all ongoing motions. Routine must be running.
+  method: POST
+  path: /api/v1/routine-editor/stop
+  source_operation: packages/standard-bots-packages.yml#stop
+- name: list
+  description: List routines defined in Routine Editor UI
+  method: GET
+  path: /api/v1/routine-editor/routines
+  source_operation: packages/standard-bots-packages.yml#list
+- name: load
+  description: Get routine data by ID
+  method: GET
+  path: /api/v1/routine-editor/routines/{routine_id}
+  source_operation: packages/standard-bots-packages.yml#load
+- name: list_spaces
+  description: List spaces from routine
+  method: GET
+  path: /api/v1/routine-editor/routines/{routine_id}/spaces
+  source_operation: packages/standard-bots-packages.yml#list_spaces
+- name: get_step_variables
+  description: Get all step variables from a running routine.
+  method: GET
+  path: /api/v1/routine-editor/routines/{routine_id}/step-variables
+  source_operation: packages/standard-bots-packages.yml#get_step_variables
+- name: get_state
+  description: Get the state from a running routine.
+  method: GET
+  path: /api/v1/routine-editor/routines/{routine_id}/state
+  source_operation: packages/standard-bots-packages.yml#get_state
+- name: load
+  description: Returns current state of a variable. Routine must be running.
+  method: GET
+  path: /api/v1/routine-editor/variables/{variable_name}
+  source_operation: packages/standard-bots-packages.yml#load
+- name: update
+  description: Update the value of a variable. Routine must be running.
+  method: POST
+  path: /api/v1/routine-editor/variables/{variable_name}
+  source_operation: packages/standard-bots-packages.yml#update
+- name: set_configuration_control_state
+  description: Set the system which is controlling the robot
+  method: POST
+  path: /api/v1/status/control-mode
+  source_operation: packages/standard-bots-packages.yml#set_configuration_control_state
+- name: get_configuration_state_control
+  description: Get the system which is controlling the robot
+  method: GET
+  path: /api/v1/status/control-mode
+  source_operation: packages/standard-bots-packages.yml#get_configuration_state_control
+- name: get_health
+  description: Get the current health of the robot
+  method: GET
+  path: /api/v1/status/health
+  source_operation: packages/standard-bots-packages.yml#get_health

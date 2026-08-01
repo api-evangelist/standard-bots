@@ -1,0 +1,20 @@
+generated: '2026-07-21'
+method: generated
+source: >-
+  Generated from the RO1 Robotics REST API operation surface (official Standard Bots
+  Python SDK, PyPI standardbots 2.20260617.2). Every step in every skill is grounded
+  in a real SDK operation; no operationIds were invented. No provider-published
+  Agent Skills / AGENTS.md were found.
+skills:
+  - file: standard-bots-pick-and-place.md
+    name: RO1 pick-and-place move
+    api: RO1 Robotics REST API
+    operations: [set_configuration_control_state, set_brakes_state, set_arm_position_controlled, send_heartbeat, control_gripper]
+  - file: standard-bots-run-routine.md
+    name: RO1 run a routine
+    api: RO1 Robotics REST API
+    operations: [list, load, play, get_state, pause, stop, update]
+  - file: standard-bots-estop-and-recover.md
+    name: RO1 emergency stop and recover
+    api: RO1 Robotics REST API
+    operations: [engage_emergency_stop, get_health, get_status, recover, trigger_user_fault]

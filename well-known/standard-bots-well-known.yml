@@ -1,0 +1,30 @@
+generated: '2026-07-21'
+method: searched
+source: Live probe of /.well-known/* on the Standard Bots hosts, 2026-07-21.
+description: >-
+  Well-known discovery probe for Standard Bots. The marketing host (standardbots.com)
+  returns 404 for all probed well-known paths. The docs host (docs.standardbots.com)
+  and the admin app (admin.standardbots.com) are single-page apps that return the
+  SPA HTML shell (HTTP 200, text/html, 1408 bytes) for every path including
+  /.well-known/* and /openapi.yaml — these are NOT real well-known documents, so no
+  files were saved. No security.txt, OIDC, OAuth, api-catalog, or ai-plugin
+  documents were found.
+hosts:
+  - host: https://standardbots.com
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+  - host: https://docs.standardbots.com
+    note: single-page app returns the same 1408-byte HTML shell for every path (soft-200); no real well-known documents.
+    documents:
+      - {path: /.well-known/security.txt, status: 200, valid: false, reason: SPA HTML shell, not RFC 9116 text}
+      - {path: /.well-known/openid-configuration, status: 200, valid: false, reason: SPA HTML shell, not JSON}
+      - {path: /openapi.yaml, status: 200, valid: false, reason: SPA HTML shell, not an OpenAPI document}
+  - host: https://admin.standardbots.com
+    note: single-page app returns the SPA shell (soft-200) for every well-known path; no real documents.
+    documents:
+      - {path: /.well-known/security.txt, status: 200, valid: false, reason: SPA HTML shell}
+      - {path: /.well-known/openid-configuration, status: 200, valid: false, reason: SPA HTML shell}

@@ -1,0 +1,118 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  Derived from the official Standard Bots Python SDK (PyPI: standardbots 2.20260617.2)
+  operation surface and models (standardbots.auto_generated). Entities and
+  relationships are inferred from the RO1 REST API resource groups and path
+  parameters; the RO1 docs site publishes no OpenAPI to derive $ref links from.
+description: >-
+  Entity-relationship model of the RO1 Robotics API. The domain is a single
+  physical robot (the control box) and the resources it exposes: motion/pose state,
+  equipment/end-effectors, routines and their spaces/variables, cameras, teleop and
+  external-control sessions, recordings, faults and calibration.
+entities:
+  - name: Robot
+    description: The RO1 robot control box (the API host). Identified via /api/v1/identity/bot_identity.
+    key_operations: [bot_identity, get_health, get_configuration_state_control]
+  - name: Joint
+    description: One of the robot arm joints; state includes position, velocity, effort.
+    key_operations: [get_joints_state, get_joints_position]
+  - name: ArmPosition
+    description: Cartesian/joint pose of the arm; controlled and uncontrolled moves.
+    key_operations: [get_arm_position, set_arm_position, set_arm_position_controlled, send_heartbeat]
+  - name: Pose
+    description: Cartesian pose (position + orientation) and pose math (add/subtract/offset/distance).
+    key_operations: [cartesian_pose, joint_pose, pose_distance, poses_addition, poses_subtraction, cartesian_offset, get_tooltip_position, get_flange_position]
+  - name: Brakes
+    description: Joint brake system and emergency stop.
+    key_operations: [get_brakes_state, set_brakes_state, engage_emergency_stop]
+  - name: Equipment
+    description: Configured end-effectors/grippers and custom sensors.
+    key_operations: [get_equipment, get_gripper_configuration, control_gripper, get_sensors]
+  - name: Payload
+    description: Mass carried by the end-effector.
+    key_operations: [get_payload, set_payload]
+  - name: Routine
+    description: A routine authored in the Routine Editor UI; can be played/paused/stopped and exposes spaces, step variables and runtime state.
+    id_field: routine_id
+    key_operations: [list, load, play, pause, stop, list_spaces, get_step_variables, get_state]
+  - name: Variable
+    description: A runtime routine variable, addressed by name; readable/updatable while a routine runs.
+    id_field: variable_name
+    key_operations: [load, update]
+  - name: Space
+    description: Global spaces and planes defining the robot's working geometry.
+    key_operations: [list_global_spaces, list_planes]
+  - name: Camera
+    description: Wrist/connected cameras; RGB frames, intrinsics, stream, settings, status.
+    id_field: camera_id
+    key_operations: [get_connected_cameras, get_color_frame, get_camera_frame, get_camera_intrinsics_color, get_camera_stream, set_camera_settings, get_camera_status]
+  - name: TeleopSession
+    description: An ephemeral teleoperation session with owner-presence heartbeat, settings and per-session overrides.
+    key_operations: [start_session, stop_session, session_heartbeat, get_state, set_teleop_settings, set_session_overrides]
+  - name: ExternalControlSession
+    description: A streaming external-control session (protobuf) leased via start/stop.
+    key_operations: [start, stop]
+  - name: Recording
+    description: A recorder capture of movement and camera data, saved to the app.
+    key_operations: [get_recorder_state, start_recording, stop_recording, update_recording, save_recording]
+  - name: Fault
+    description: Robot fault state and recovery.
+    key_operations: [trigger_user_fault, recover, get_status]
+  - name: Calibration
+    description: The robot's active calibration.
+    key_operations: [get_active_calibration, set_active_calibration]
+  - name: IO
+    description: Digital/analog I/O state on the control box.
+    key_operations: [get_io_state, update_io_state]
+  - name: RosControl
+    description: ROS2 control state and external DDS configuration.
+    key_operations: [get_ros_control_state, update_ros_control_state, get_dds_configuration, update_dds_configuration]
+  - name: Peer
+    description: A messenger/WebRTC signaling peer.
+    key_operations: [register_peer, unregister_peer, send_message, get_messages]
+relationships:
+  - from: Robot
+    to: Joint
+    kind: has_many
+    via: joints
+  - from: Robot
+    to: Equipment
+    kind: has_one
+    via: end-effector
+  - from: Equipment
+    to: Payload
+    kind: has_one
+    via: payload
+  - from: Robot
+    to: Routine
+    kind: has_many
+    via: routine-editor/routines
+  - from: Routine
+    to: Variable
+    kind: has_many
+    via: step-variables / variables
+  - from: Routine
+    to: Space
+    kind: has_many
+    via: routines/{routine_id}/spaces
+  - from: Robot
+    to: Camera
+    kind: has_many
+    via: cameras/connected
+  - from: Robot
+    to: TeleopSession
+    kind: has_one
+    via: teleop/session
+  - from: Robot
+    to: ExternalControlSession
+    kind: has_one
+    via: external-control
+  - from: Robot
+    to: Recording
+    kind: has_many
+    via: recorder
+  - from: Robot
+    to: Calibration
+    kind: has_one
+    via: calibration/active

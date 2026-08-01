@@ -1,0 +1,32 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  Derived from the official Standard Bots Python SDK (PyPI: standardbots 2.20260617.2)
+  and site probing on 2026-07-21. The RO1 docs site is a single-page app; no public
+  status page, deprecation policy, SLA page or dated changelog was located.
+description: >-
+  Lifecycle posture of the RO1 Robotics API. Versioning is URI-path (v1). No public
+  status page, deprecation policy, or SLA was found — expected for an on-robot/edge
+  API whose availability tracks the physical robot rather than a hosted cloud
+  service. The SDK itself ships on a CalVer scheme.
+versioning:
+  scheme: uri-path
+  current: v1
+  path_prefix: /api/v1
+  docs: https://docs.standardbots.com/docs/rest-api/
+sdk_versioning:
+  scheme: calver
+  example: 2.20260617.2
+  registry: https://pypi.org/project/standardbots/
+deprecation:
+  policy_url: null
+  sunset_header: false
+  notes: No published deprecation policy or Sunset/Deprecation header support located.
+sla:
+  url: null
+  uptime_target: null
+  notes: >-
+    No SLA published. The RO1 API is served on-robot (edge); availability is tied to
+    the physical robot and control box, not a hosted cloud service.
+status_page: null
+deprecated_operations: []

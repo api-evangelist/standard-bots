@@ -1,0 +1,115 @@
+// Standard Bots RO1 — realtime external-control protobuf schema.
+// method: derived
+// source: reconstructed faithfully from the compiled FileDescriptor shipped in the
+//   official Standard Bots Python SDK (PyPI: standardbots 2.20260617.2,
+//   standardbots/realtime/_proto/external_control_pb2.py). Standard Bots does not
+//   publish the original external_control.proto directly; this is the exact schema
+//   embedded in the SDK, decoded via FileDescriptorProto. Field numbers, types,
+//   messages and the ClientMessage/ServerMessage oneof are verbatim from the descriptor.
+// Used by the RO1 realtime streaming control channel (standardbots.realtime),
+// started/stopped through POST /api/v1/external-control/start and /stop.
+
+syntax = "proto3";
+package external_control;
+
+message Point {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+}
+
+message Quaternion {
+  double x = 1;
+  double y = 2;
+  double z = 3;
+  double w = 4;
+}
+
+message Pose {
+  Point position = 1;
+  Quaternion orientation = 2;
+}
+
+message JointState {
+  repeated string name = 1;
+  repeated double position = 2;
+  repeated double velocity = 3;
+  repeated double effort = 4;
+}
+
+message PoseCommand {
+  Pose pose = 1;
+  uint64 timestamp_us = 2;
+}
+
+message JointTrajectoryPoint {
+  repeated double position = 1;
+  double time_from_start_seconds = 2;
+}
+
+message TrajectoryCommand {
+  repeated string joint_names = 1;
+  repeated JointTrajectoryPoint points = 2;
+  uint64 timestamp_us = 3;
+}
+
+message JointCommand {
+  repeated double position = 1;
+  uint64 timestamp_us = 2;
+}
+
+message GripperCommand {
+  double position = 1;
+  double velocity = 2;
+  uint64 timestamp_us = 3;
+}
+
+message GripperState {
+  double position = 1;
+}
+
+message TakeControl {
+}
+
+message ReleaseControl {
+}
+
+message Subscribe {
+}
+
+message Unsubscribe {
+}
+
+message Heartbeat {
+}
+
+message CancelTrajectory {
+}
+
+message ControlResponse {
+  bool success = 1;
+  string reason = 2;
+}
+
+message ClientMessage {
+  oneof payload {
+    TakeControl take_control = 1;
+    PoseCommand pose_command = 2;
+    ReleaseControl release_control = 3;
+    Subscribe subscribe = 4;
+    Unsubscribe unsubscribe = 5;
+    Heartbeat heartbeat = 6;
+    TrajectoryCommand trajectory_command = 7;
+    JointCommand joint_command = 8;
+    GripperCommand gripper_command = 9;
+    CancelTrajectory cancel_trajectory = 10;
+  }
+}
+
+message ServerMessage {
+  Pose pose = 1;
+  JointState joints = 2;
+  uint64 timestamp_us = 3;
+  ControlResponse control_response = 4;
+  GripperState gripper = 5;
+}

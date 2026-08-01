@@ -1,9 +1,30 @@
 aid: standard-bots
 name: Standard Bots
-description: Standard Bots is a company surfaced as a portfolio company of general-catalyst and added
-  to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: >-
+  Standard Bots designs and builds AI-native industrial robotic arms — the RO1
+  family (Spark, Core/RO1, Thor, and the Bolt beta) — designed and assembled in the
+  USA for machine tending, welding, palletizing, pick & place, and inspection. The
+  robots ship with a developer platform, "StandardOS", that exposes a Bearer-token
+  REST API served on the robot control box (/api/v1) for controlling arm motion,
+  the gripper/end-effector, cameras, routines, teleoperation, recording, I/O and
+  fault recovery. Alongside the REST API, Standard Bots publishes an official Python
+  SDK (PyPI: standardbots), a realtime protobuf external-control streaming channel,
+  and a ROS2 bridge (Cyclone DDS) with MoveIt and Modbus tooling — making the RO1
+  programmable both for high-level orchestration and low-latency realtime control.
 url: https://raw.githubusercontent.com/api-evangelist/standard-bots/refs/heads/main/apis.yml
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://assets-global.website-files.com/63d925b46a84dec214bc0bbd/6408ee2c083a0474a480124a_OG%20Image-Home.jpg
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
@@ -12,12 +33,95 @@ x-tier: stub
 x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
 tags:
 - Company
-apis: []
+- Robotics
+- Industrial Automation
+- Robotic Arm
+- Manufacturing
+- Artificial Intelligence
+- Machine Tending
+- Developer API
+- ROS2
+- Physical AI
+apis:
+- name: RO1 Robotics REST API
+  description: >-
+    On-robot REST API (served by the RO1 control box on /api/v1, Bearer-token auth)
+    for controlling arm position and motion, the gripper/end-effector, cameras,
+    routines, teleoperation, the recorder, I/O, calibration and fault recovery. A
+    companion realtime protobuf stream and ROS2 bridge cover low-latency control.
+  humanURL: https://docs.standardbots.com/docs/rest-api/
+  baseURL: http://robot-control-box.local:3000
+  x-base-url-note: >-
+    The RO1 REST API is served on the robot control box on the local network
+    (default port 3000), not a public internet host; the base URL is device-local
+    and per-robot. Enable it in the Standard Bots app under Settings -> Configure
+    Developer API.
+  properties:
+  - type: APIReference
+    url: https://docs.standardbots.com/docs/rest-api/
+  - type: Authentication
+    url: authentication/standard-bots-authentication.yml
+  - type: Protobuf
+    url: grpc/standard-bots-external-control.proto
+common:
+- type: DomainSecurity
+  url: security/standard-bots-domain-security.yml
+- type: Website
+  url: https://standardbots.com
+- type: DeveloperPortal
+  url: https://standardbots.com/developers
+- type: Documentation
+  url: https://docs.standardbots.com/
+- type: APIReference
+  url: https://docs.standardbots.com/docs/rest-api/
+- type: Support
+  url: https://standardbots.com/support
+- type: Blog
+  url: https://standardbots.com/blog
+- type: GitHubOrganization
+  url: https://github.com/standardbots
+- type: Login
+  url: https://admin.standardbots.com
+- type: TermsOfService
+  url: https://standardbots.com/terms-of-service
+- type: PrivacyPolicy
+  url: https://standardbots.com/privacy-policy
+- type: Packages
+  url: packages/standard-bots-packages.yml
+- type: SDKs
+  url: packages/standard-bots-packages.yml
+- type: Authentication
+  url: authentication/standard-bots-authentication.yml
+- type: Conventions
+  url: conventions/standard-bots-conventions.yml
+- type: ErrorCatalog
+  url: errors/standard-bots-error-codes.yml
+- type: MCPServer
+  url: mcp/standard-bots-mcp.yml
+- type: DataModel
+  url: data-model/standard-bots-data-model.yml
+- type: Lifecycle
+  url: lifecycle/standard-bots-lifecycle.yml
+- type: Conformance
+  url: conformance/standard-bots-conformance.yml
+- type: Sandbox
+  url: sandbox/standard-bots-sandbox.yml
+- type: Protobuf
+  url: grpc/standard-bots-external-control.proto
+- type: LLMsTxt
+  url: llms/standard-bots-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 15
+  pass: local-v1

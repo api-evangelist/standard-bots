@@ -1,0 +1,43 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  Official Standard Bots Python SDK (PyPI: standardbots 2.20260617.2 — RobotKind
+  enum and StandardBotsRobot constructor) and the standardbots/ros2-realtime-api
+  README (Developer API enablement + local testing).
+description: >-
+  The RO1 Robotics API distinguishes live from simulated operation via the required
+  robot-kind header rather than test-vs-live API keys. Passing robot_kind=simulated
+  (SDK default is live) targets a simulated robot, letting integrations be developed
+  and exercised without moving physical hardware. The API is enabled per robot in
+  the Standard Bots app and served on the control box; SB also runs a botctl-based
+  test harness against a robot in a known state.
+modes:
+  - name: live
+    header: 'robot-kind: live'
+    description: Drives the physical RO1 robot arm and hardware.
+  - name: simulated
+    header: 'robot-kind: simulated'
+    description: >-
+      Targets a simulated robot (RobotKind.Simulated in the SDK). Use for developing
+      and testing integrations without commanding physical motion.
+sdk_default: 'robot_kind defaults to RobotKind.Live in StandardBotsRobot(url, token, robot_kind=RobotKind.Live)'
+enablement:
+  docs: https://standardbots.com/developers
+  steps:
+    - In the Standard Bots app: Menu -> Settings -> Configure Developer API.
+    - Enable "Enable Developer API" to turn on the Python/REST API.
+    - Optionally enable "Enable ROS2 bridge" for realtime ROS2 topics.
+test_harness:
+  note: >-
+    The SDK ships a pytest suite exercised with `botctl publicapi test`. Tests are
+    parameterized by robot state via pytest markers/flags (e.g. --gripper=<type>,
+    --camera-connected) and require a sample routine named "Test Public API", a
+    global variable "test_public_api_global", and a global space "Test global
+    space" to be present on the target robot.
+  env:
+    - 'SB_API_URL — base URL of the target robot control box (e.g. http://<control-box-ip>:3000)'
+    - 'SB_API_TOKEN — the Developer API Bearer token'
+notes: >-
+  No hosted public sandbox / playground URL and no synthetic test credentials are
+  published; the "sandbox" is the simulated robot mode plus a developer-provisioned
+  robot or control box. No test values were invented.

@@ -1,0 +1,41 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  Derived from the official Standard Bots Python SDK (PyPI: standardbots 2.20260617.2)
+  and site probing on 2026-07-21. Standards conformance is inferred from the RO1
+  API's auth model, error envelope, and interface surface.
+description: >-
+  Cross-cutting standards conformance for the RO1 Robotics API. The API uses Bearer
+  token auth (no OAuth2/OIDC), a custom error envelope (not RFC 9457), and exposes a
+  ROS2 bridge, a protobuf streaming interface, a Prometheus metrics endpoint, and
+  Modbus support for industrial I/O.
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: Auth is a static per-robot Bearer token; no OAuth2 authorization server or flows.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Errors use a custom { error, message } envelope, not application/problem+json.
+  - id: rfc6750-bearer-token
+    conforms: true
+    evidence: 'Authorization: Bearer <token> header (RequestManager.json_headers in the official SDK).'
+  - id: ros2
+    conforms: true
+    evidence: Optional ROS2 bridge publishes topics over Cyclone DDS (ROS_DOMAIN_ID=1); sample client standardbots/ros2-realtime-api; /api/v1/ros/dds/configuration.
+  - id: prometheus-exposition
+    conforms: true
+    evidence: GET /api/v1/metrics/prometheus returns Prometheus text exposition format.
+  - id: modbus
+    conforms: true
+    evidence: Standard Bots publishes standardbots/Modbus (modern C++ Modbus library) for industrial I/O integration.
+  - id: protobuf-grpc
+    conforms: true
+    evidence: Realtime external control uses a protobuf message schema (grpc/standard-bots-external-control.proto) over a streaming channel.
+  - id: pagination
+    conforms: false
+    evidence: List endpoints return full collections; no cursor/offset paging observed.
+  - id: idempotency
+    conforms: false
+    evidence: No idempotency-key header; motion safety uses a command-lease + heartbeat pattern instead.

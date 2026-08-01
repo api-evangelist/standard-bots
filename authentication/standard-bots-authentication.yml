@@ -1,0 +1,56 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  Derived from the official Standard Bots Python SDK (PyPI: standardbots 2.20260617.2,
+  standardbots.auto_generated.apis RequestManager.json_headers) and the
+  ros2-realtime-api README (developer API enablement). The RO1 docs REST-API site
+  is a single-page app with no downloadable OpenAPI, so the auth model is derived
+  from the first-party SDK rather than a spec.
+description: >-
+  Authentication profile for the RO1 Robotics REST API. The API runs on the robot
+  control box and is authenticated with a Bearer token minted per robot from the
+  Standard Bots app (Menu -> Settings -> Configure Developer API -> Enable Developer
+  API). Every request also carries a robot-kind header selecting live vs simulated
+  operation.
+summary:
+  types:
+    - http
+  http_schemes:
+    - bearer
+  api_key_in: []
+  oauth2_flows: []
+schemes:
+  - name: bearerToken
+    type: http
+    scheme: bearer
+    description: >-
+      Per-robot API token sent as `Authorization: Bearer <token>`. The token is
+      generated in the Standard Bots app under Settings -> Configure Developer API,
+      which also enables the Developer (Python/REST) API and optional ROS2 bridge
+      on the control box. There is no OAuth authorization server and no scope
+      surface; the token grants full Developer-API access to that robot.
+    sources:
+      - packages/standard-bots-packages.yml
+required_headers:
+  - name: Authorization
+    value: 'Bearer <token>'
+    required: true
+  - name: robot-kind
+    value: 'live | simulated'
+    required: true
+    description: >-
+      Selects the target robot context. `live` drives the physical RO1; `simulated`
+      targets a simulated robot (the SDK also accepts the legacy `robot_kind` header
+      for backwards compatibility).
+  - name: Content-Type
+    value: application/json
+    required: true
+    applies_to: request bodies
+enablement:
+  docs: https://standardbots.com/developers
+  steps:
+    - Open the Standard Bots app on the robot.
+    - Menu -> Settings -> Configure Developer API.
+    - Turn on "Enable Developer API" (enables the Python/REST API).
+    - Optionally turn on "Enable ROS2 bridge" for the realtime ROS2 topics.
+    - If "Configure Developer API" is missing, contact Standard Bots to enable it.

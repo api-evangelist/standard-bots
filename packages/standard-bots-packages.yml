@@ -1,0 +1,60 @@
+generated: '2026-07-21'
+method: searched
+source: >-
+  PyPI (https://pypi.org/pypi/standardbots/json) and the Standard Bots developer
+  page (https://standardbots.com/developers) + GitHub org (https://github.com/standardbots).
+  Registry HTTP status recorded at fetch time.
+description: >-
+  First-party Standard Bots client libraries and sample code for the RO1 Robotics
+  API. The official Python SDK is published on PyPI as `standardbots` and is code
+  generated from the RO1 REST API (module standardbots.auto_generated) plus a
+  realtime gRPC/protobuf streaming layer (standardbots.realtime). A TypeScript SDK
+  is advertised on the developer page; C++, Rust and Go are listed as "coming
+  soon". No first-party npm package was located in the public npm registry as of
+  this pass.
+packages:
+  - language: python
+    registry: pypi
+    name: standardbots
+    url: https://pypi.org/project/standardbots/
+    install: pip install standardbots
+    version: 2.20260617.2
+    requires_python: '>=3.7'
+    summary: Standard Bots RO1 Robotics API
+    author: Standard Bots Support
+    official: true
+    notes: >-
+      Codegen client for the RO1 REST API (Bearer-token, /api/v1) plus a realtime
+      protobuf external-control stream (standardbots.realtime, uses external_control.proto).
+  - language: typescript
+    registry: unlisted
+    name: Standard Bots TypeScript SDK
+    url: https://standardbots.com/developers
+    official: true
+    status: documented-not-located
+    notes: >-
+      The developer page lists TypeScript as a supported SDK language alongside
+      Python, but no first-party package was found in the public npm registry
+      under standardbots / @standardbots / standard-bots at fetch time. Likely
+      distributed via docs/download rather than npm.
+sample_repositories:
+  - name: standardbots/ros2-realtime-api
+    url: https://github.com/standardbots/ros2-realtime-api
+    language: Python
+    description: Sample code to call the RO1 ROS2 realtime APIs (Cyclone DDS, ROS_DOMAIN_ID=1).
+    official: true
+  - name: standardbots/moveit
+    url: https://github.com/standardbots/moveit
+    language: C++
+    description: MoveIt motion planning framework fork used with the RO1.
+    official: true
+  - name: standardbots/Modbus
+    url: https://github.com/standardbots/Modbus
+    language: C++
+    description: Modbus library for modern C++.
+    official: true
+  - name: standardbots/isaac-sim-exploration
+    url: https://github.com/standardbots/isaac-sim-exploration
+    language: Python
+    description: NVIDIA Isaac Sim exploration for the RO1.
+    official: true

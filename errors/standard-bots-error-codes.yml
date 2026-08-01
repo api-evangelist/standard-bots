@@ -1,0 +1,114 @@
+generated: '2026-07-21'
+method: derived
+source: 'Derived from the official Standard Bots Python SDK (PyPI: standardbots 2.20260617.2) ErrorEnum
+  in standardbots.auto_generated.models. This is the RO1 REST API application error registry, not RFC
+  9457 problem+json.'
+format: custom
+description: 'Application error codes returned by the RO1 Robotics REST API. Errors are returned on HTTP
+  4xx/5xx (the SDK treats status >= 400 and <= 500 as user error, 503 as unavailable) with a JSON envelope
+  {"error": <code>, "message": <human string>}. HTTP status mapping is inferred from each code semantics.'
+envelope:
+  shape: '{ "error": string (error code), "message": string (human-readable) }'
+  error_field: error
+  message_field: message
+error_codes:
+- code: authorization_required
+  title: AuthorizationRequired
+  description: Authorization required to access this resource
+  http_status: 401
+- code: routine_must_be_running
+  title: RoutineMustBeRunning
+  description: Routine must be running
+  http_status: 409
+- code: api_control_required
+  title: ApiControlRequired
+  description: API control required
+  http_status: 409
+- code: robot_brakes_disengage_failed
+  title: RobotBrakesDisengageFailed
+  description: Robot brakes disengage failed
+  http_status: 409
+- code: robot_brakes_engage_failed
+  title: RobotBrakesEngageFailed
+  description: Robot brakes engage failed
+  http_status: 409
+- code: request_failed_validation
+  title: RequestFailedValidation
+  description: Request failed validation
+  http_status: 400
+- code: robot_not_idle
+  title: RobotNotIdle
+  description: Robot must be idle
+  http_status: 409
+- code: brakes_must_be_engaged
+  title: BrakesMustBeEngaged
+  description: Brakes must be_engaged
+  http_status: 409
+- code: brakes_must_be_disengaged
+  title: BrakesMustBeDisengaged
+  description: Brakes must be disengaged
+  http_status: 409
+- code: equipment_no_matching
+  title: EquipmentNoMatching
+  description: No matching equipment found
+  http_status: 409
+- code: service_initializing
+  title: ServiceInitializing
+  description: The service is unavailable while initializing
+  http_status: 503
+- code: camera_disconnected
+  title: CameraDisconnected
+  description: Camera service running, but no camera is connected
+  http_status: 409
+- code: settings_validation_error
+  title: SettingsValidationError
+  description: Camera settings validation failed
+  http_status: 400
+- code: settings_timeout
+  title: SettingsTimeout
+  description: Camera settings timed out
+  http_status: 409
+- code: internal_server_error
+  title: InternalServerError
+  description: Internal server error occurred
+  http_status: 500
+- code: recovery_error
+  title: RecoveryError
+  description: Recovery error occurred
+  http_status: 409
+- code: not_found
+  title: NotFound
+  description: Requested resource not found
+  http_status: 404
+- code: invalid_space_specified
+  title: InvalidSpaceSpecified
+  description: Space specified was invalid or not found
+  http_status: 404
+- code: invalid_parameters
+  title: InvalidParameters
+  description: Parameters are invalid
+  http_status: 400
+- code: routine_does_not_exist
+  title: RoutineDoesNotExist
+  description: Routine does not exist
+  http_status: 404
+- code: cannot_play_routine
+  title: CannotPlayRoutine
+  description: Routine is not in the correct state to play
+  http_status: 409
+- code: routine_must_be_playing
+  title: RoutineMustBePlaying
+  description: Routine must be playing
+  http_status: 409
+- code: cannot_change_ros_state
+  title: CannotChangeRosState
+  description: Cannot change ROS state
+  http_status: 409
+- code: io_safeguard_error
+  title: IoSafeguardError
+  description: Cannot change IO state because of safeguard
+  http_status: 409
+- code: robot_out_of_compliance_bounds
+  title: RobotOutOfComplianceBounds
+  description: 'Cannot initiate compliance control: Robot is outside compliance bounds'
+  http_status: 409

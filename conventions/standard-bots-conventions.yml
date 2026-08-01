@@ -1,0 +1,85 @@
+generated: '2026-07-21'
+method: derived
+source: >-
+  Derived from the official Standard Bots Python SDK (PyPI: standardbots 2.20260617.2)
+  and the ros2-realtime-api README. The RO1 REST-API docs site is a single-page app
+  with no downloadable OpenAPI, so cross-cutting semantics are derived from the
+  first-party SDK code (auto_generated.apis / models, realtime.protocol).
+description: >-
+  How the RO1 Robotics API behaves across operations: it is an on-robot (edge) REST
+  API served by the control box, with a companion realtime protobuf streaming
+  channel and a ROS2 bridge. This profile captures the runtime semantics OpenAPI
+  does not express: auth style, the command-lease/heartbeat motion-safety pattern,
+  the error envelope, versioning, and the realtime surfaces.
+base_url: 'http://<robot-control-box>:3000 (device-local; the RO1 REST API is served on the robot control box, not a public internet host)'
+api_style: REST over HTTP(S), JSON request/response bodies, URI-path versioning
+versioning:
+  scheme: uri-path
+  current: v1
+  path_prefix: /api/v1
+authentication:
+  scheme: Bearer token (per-robot Developer API token)
+  headers: ['Authorization: Bearer <token>', 'robot-kind: live|simulated']
+  detail: authentication/standard-bots-authentication.yml
+idempotency:
+  supported: false
+  notes: >-
+    The API documents no idempotency-key header. Motion safety is instead handled
+    by a command-lease + heartbeat pattern: controlled arm moves
+    (POST /api/v1/movement/position/arm/controlled) return a command_id, and the
+    client must repeatedly POST /api/v1/movement/position/arm/controlled/{command_id}/heartbeat
+    to keep the motion authorized; teleop and external-control sessions use the same
+    owner-presence heartbeat. This is NOT an idempotency contract and no
+    Idempotency pointer is emitted.
+pagination:
+  supported: false
+  notes: >-
+    List endpoints (routines, planes, global spaces, connected cameras, sensors)
+    return full collections with no cursor/offset paging observed in the SDK.
+error_envelope:
+  shape: '{ "error": <error_code>, "message": <human-readable> }'
+  error_field: error
+  message_field: message
+  status_mapping: >-
+    The SDK treats HTTP status >= 400 and <= 500 as user error and parses the error
+    envelope; 503 is treated as service-unavailable (e.g. service initializing,
+    connection refused). Not RFC 9457 problem+json.
+  detail: errors/standard-bots-error-codes.yml
+control_mode:
+  notes: >-
+    The robot enforces a single controlling system at a time. GET/POST
+    /api/v1/status/control-mode reads/sets which system holds control, and many
+    write operations return api_control_required or robot_not_idle until API control
+    is acquired and the robot is idle with brakes in the correct state.
+realtime_surfaces:
+  - kind: protobuf-stream
+    name: external control
+    description: >-
+      Bidirectional low-latency streaming control via protobuf ClientMessage /
+      ServerMessage (take/release control, pose/joint/trajectory/gripper commands,
+      pose+joint state feedback). Started/stopped via POST /api/v1/external-control/start
+      and /stop; schema in grpc/standard-bots-external-control.proto.
+  - kind: ros2
+    name: ROS2 bridge
+    description: >-
+      Optional ROS2 topics published on the local network (Cyclone DDS,
+      ROS_DOMAIN_ID=1) when the ROS2 bridge is enabled; DDS configuration via
+      /api/v1/ros/dds/configuration. Sample client in standardbots/ros2-realtime-api.
+  - kind: webrtc
+    name: WebRTC signaling
+    description: >-
+      /api/v1/webrtc/message(s) and /api/v1/messenger/peers provide a signaling /
+      peer-messaging surface (e.g. for camera/teleop streams).
+metrics:
+  prometheus: GET /api/v1/metrics/prometheus (Node.js runtime metrics, Prometheus text exposition format)
+safety_note: >-
+  This is a physical-robot control API. Operations such as set_arm_position,
+  set_arm_position_controlled, control_gripper, set_brakes_state and
+  engage_emergency_stop cause real-world motion or stop physical hardware. Agentic
+  and automated callers should treat write operations as safety-critical and gate
+  them behind human confirmation.
+cross_references:
+  authentication: authentication/standard-bots-authentication.yml
+  errors: errors/standard-bots-error-codes.yml
+  lifecycle: lifecycle/standard-bots-lifecycle.yml
+  data_model: data-model/standard-bots-data-model.yml
