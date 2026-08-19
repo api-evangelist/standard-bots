@@ -453,3 +453,9 @@ tools:
   method: GET
   path: /api/v1/status/health
   source_operation: packages/standard-bots-packages.yml#get_health
+deployment:
+  mode: none
+  verified: derived
+  tools: 85
+  checked: '2026-08-12'
+  source: catalog MCP census
