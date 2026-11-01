@@ -64,6 +64,97 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Standard Bots is a company surfaced as a portfolio company of general-catalyst and added to the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+Standard Bots designs and builds AI-native industrial robotic arms — the RO1 family (Spark, Core/RO1, Thor, and the Bolt beta) — designed and assembled in the USA for machine tending, welding, palletizing, pick & place, and inspection. The robots ship with a developer platform, "StandardOS", that exposes a Bearer-token REST API served on the robot control box (/api/v1) for controlling arm motion, the gripper/end-effector, cameras, routines, teleoperation, recording, I/O and fault recovery. Alongside the REST API, Standard Bots publishes an official Python SDK (PyPI: standardbots), a realtime protobuf external-control streaming channel, and a ROS2 bridge (Cyclone DDS) with MoveIt and Modbus tooling — making the RO1 programmable both for high-level orchestration and low-latency realtime control.
 
-Backed by: general-catalyst
+**Areas:** Company · Robotics · Industrial Automation · Robotic Arm · Manufacturing · Artificial Intelligence · Machine Tending · Developer API · ROS 2 · Physical AI
+
+## Standard Bots on APIs.io
+
+Everything profiled for Standard Bots is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/standard-bots/](https://apis.io/providers/standard-bots/)** — or go straight to one of the APIs or properties below.
+
+### APIs (1)
+
+- [RO1 Robotics REST API](https://apis.io/apis/standard-bots/ro1-robotics-rest-api/) — On-robot REST API (served by the RO1 control box on /api/v1, Bearer-token auth) for controlling arm position and motion, the gripper/end-effector, cameras,…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [standard-bots](https://apis.io/servers/standard-bots/standard-bots/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Standard Bots Authentication](https://apis.io/security/standard-bots/standard-bots-authentication/)
+- [Standard Bots Domain Security](https://apis.io/security/standard-bots/standard-bots-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://standardbots.com)
+- [Documentation](https://docs.standardbots.com/)
+- [API reference](https://docs.standardbots.com/docs/rest-api/)
+- [Support](https://standardbots.com/support)
+- [Blog](https://standardbots.com/blog)
+- [Terms of service](https://standardbots.com/terms-of-service)
+- [Privacy policy](https://standardbots.com/privacy-policy)
+- [GitHub](https://github.com/standardbots)
+
+## API Evangelist rating
+
+**Kin Score 29.8** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 24.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 2.6 |
+| Developer ergonomics | 44.6 |
+| Access clarity | 27.6 |
+
+**Agent readiness 17.1** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 22.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/standard-bots/](https://apis.io/providers/standard-bots/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Standard Bots: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/standard-bots/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
